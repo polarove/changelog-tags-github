@@ -68,6 +68,9 @@ export const sendReleaseToGithub = async (
   md: string
 ) => {
   const { data: user } = await octokit.rest.users.getAuthenticated()
+  console.log(user.login)
+  console.log(config)
+  console.log(md)
   await octokit.request('POST /repos/{owner}/{repo}/releases', {
     owner: user.login,
     repo: config.github,

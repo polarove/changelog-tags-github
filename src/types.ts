@@ -2,7 +2,7 @@ export interface CliOptions {
   token: string
   from: TagFrom
   to: TagTo
-  /** github 仓库名 */
+  /** github 仓库链接 */
   github: string
   title: string
   prerelease: boolean

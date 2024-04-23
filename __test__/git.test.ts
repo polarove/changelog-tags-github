@@ -47,3 +47,12 @@ test('获取域名', () => {
   const targetHttps = 'https://github.com/polarove/release-by-tags'
   expect(getDomain(targetHttps)).toBe('https://github.com')
 })
+
+test('获取仓库名', () => {
+  const url = 'https://github.com/polarove/release-by-tags'
+  const result = url
+    .match(/^(https:\/\/|git@)([^/\r\n]+)(\/[^\r\n]*)(\/[^\r\n]*)/)![4]
+    .replace(/\//, '')
+  console.log(result)
+  expect(result).toBe('release-by-tags')
+})

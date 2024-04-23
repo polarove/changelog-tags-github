@@ -9,7 +9,8 @@ import {
   getLatestTwoTags,
   getOriginUrl,
   strip,
-  parseLog
+  parseLog,
+  httpsProtocal
 } from '.'
 
 export const generate = async (config: CliOptions) => {
@@ -78,10 +79,9 @@ export const sendReleaseToGithub = async (config: CliOptions, md: string) => {
   if (user) console.log(parseLog(`${user.login}, 认证成功`))
   console.log(config)
   console.log(md)
-  const repo = config.github.match(
-    /^(https:\/\/|git@)([^/\r\n]+)(\/[^\r\n]*)(\/[^\r\n]*)/
-  )![4]
-  console.log(repo)
+  const repo = httpsProtocal(config.github)
+    .match(/^(https:\/\/|git@)([^/\r\n]+)(\/[^\r\n]*)(\/[^\r\n]*)/)![4]
+    .replace(/\//, '')
   await octokit.request('POST /repos/{owner}/{repo}/releases', {
     owner: user.login,
     repo,

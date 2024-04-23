@@ -9,7 +9,10 @@
     "build": "tsc",
     "prepare": "husky"
   },
-  "author": "",
+  "files": [
+    "./lib"
+  ],
+  "author": "liuqi <liuqi6602@163.com>",
   "license": "MIT",
   "dependencies": {
     "octokit": "^3.2.0",

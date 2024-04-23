@@ -9,7 +9,7 @@ import {
   packageName,
   parseLog
 } from '.'
-import { prepare, sendReleaseToGithub, generate } from './factory'
+import { sendReleaseToGithub, generate } from './factory'
 import { writeFileSync } from 'fs'
 import { green } from 'kolorist'
 
@@ -53,8 +53,7 @@ cli.command('').action(async (args: CliOptions) => {
       writeFileSync(args.output, md)
       finishedWithLog(green(`已保存至 ${args.output}`))
     }
-    const octokit = prepare(config.token)
-    await sendReleaseToGithub(octokit, config, md)
+    await sendReleaseToGithub(config, md)
     finishedWithLog(green('已发布到Github'))
   } catch (err) {
     failedWithLog(err as string)

@@ -55,26 +55,15 @@ const parseMarkdown = (commits: Commit[], github: string) => {
     : '## 没有变更记录'
 }
 
-export const prepare = (auth: string): Octokit => {
+export const sendReleaseToGithub = async (config: CliOptions, md: string) => {
   const userAgent = `@polarove/releaseBetweenTags`
   const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone
   const octokit = new Octokit({
-    auth,
+    auth: config.token,
     timeZone,
     userAgent
   })
-  return octokit
-}
-
-export const sendReleaseToGithub = async (
-  octokit: Octokit,
-  config: CliOptions,
-  md: string
-) => {
   const { data: user } = await octokit.rest.users.getAuthenticated()
-  console.log(user.login)
-  console.log(config)
-  console.log(md)
   await octokit.request('POST /repos/{owner}/{repo}/releases', {
     owner: user.login,
     repo: config.github,

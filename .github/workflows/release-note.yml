@@ -1,0 +1,25 @@
+name: '根据最新tag和上一个tag创建release note'
+
+on:
+    push:
+        branches: ['main', 'master']
+
+jobs:
+    release:
+        runs-on: ubuntu-latest
+        permissions:
+            contents: 'write'
+        steps:
+            - uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
+
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: lts/*
+
+            - run: npm install tsx -g
+
+            - run: tsx src/index.ts
+              env:
+                  GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}

@@ -1,0 +1,23 @@
+{
+    "name": "release-bytags",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.ts",
+    "type": "module",
+    "scripts": {
+        "test": "vitest",
+        "build": "tsc"
+    },
+    "author": "",
+    "license": "MIT",
+    "dependencies": {
+        "octokit": "^3.2.0",
+        "typescript": "^5.4.5"
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "devDependencies": {
+        "vitest": "^1.5.0"
+    }
+}

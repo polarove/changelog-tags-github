@@ -4,12 +4,13 @@ import { Octokit } from 'octokit'
 // import { failedWithLogs } from './logs.js'
 
 const GITHUB_TOKEN = env['GITHUB_TOKEN']
+const RELEASE_TOKEN = env['RELEASE_TOKEN']
 console.log('GITHUB_TOKEN: ', env['GITHUB_TOKEN'])
 console.log('RELEASE_TOKEN: ', env['RELEASE_TOKEN'])
 console.log('NPM_TOKEN: ', env['NODE_AUTH_TOKEN'])
 
 const octokit = new Octokit({
-  auth: GITHUB_TOKEN,
+  auth: RELEASE_TOKEN,
   timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
   userAgent: '@polarove/release-by-tags'
 })

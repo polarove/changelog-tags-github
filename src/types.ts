@@ -8,7 +8,6 @@ export interface CliOptions {
   prerelease: boolean
   draft: boolean
   output: string
-  emoji: boolean
 }
 
 export type TagFrom = string

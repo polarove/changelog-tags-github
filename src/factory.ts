@@ -22,11 +22,11 @@ export const generate = async (config: CliOptions) => {
     (await getOriginUrl()) ||
     strip(await catchEnv(GITHUB_REPOSITORY), '/')
   const commits = await getCommitBetweenTags(config.from, config.to)
-  const md = parseMarkdown(commits, config.emoji, config.github)
+  const md = parseMarkdown(commits, config.github)
   return { config, md }
 }
 
-const parseMarkdown = (commits: Commit[], emoji: boolean, github: string) => {
+const parseMarkdown = (commits: Commit[], github: string) => {
   const parseCommitLink = async (hash: string) => {
     return github.concat('/commit').concat(hash)
   }

@@ -21,13 +21,15 @@ export const generate = async (config: CliOptions) => {
     config.github ||
     (await getOriginUrl()) ||
     strip(await catchEnv(GITHUB_REPOSITORY), '/')
+  config.draft = config.draft || false
+  config.prerelease = config.prerelease || false
   const commits = await getCommitBetweenTags(config.from, config.to)
   const md = parseMarkdown(commits, config.github)
   return { config, md }
 }
 
 const parseMarkdown = (commits: Commit[], github: string) => {
-  const parseCommitLink = async (hash: string) => {
+  const parseCommitLink = (hash: string) => {
     return github.concat('/commit').concat(hash)
   }
 
@@ -43,7 +45,7 @@ const parseMarkdown = (commits: Commit[], github: string) => {
     `
             .concat('')
             .concat(
-              `[${commit.hash}](${parseCommitLink(commit.hash)}) - [${commit.author}](${getDomain(github)})`
+              `[${commit.hash.slice(0, 7)}](${parseCommitLink(commit.hash)}) - [${commit.author}](${getDomain(github).concat('/').concat(commit.author)})`
             )
             .concat('')
         )

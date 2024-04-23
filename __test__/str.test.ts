@@ -21,3 +21,7 @@ test('获取指定标识符后的字符串', () => {
   expect(strip('polarove/', '/', 1, true)).toBe('/')
   expect(strip('polarove/', '/', 1, false)).toBe('')
 })
+
+test('截取字符串', () => {
+  expect('asfsfdasfldfkhjdgfohloklilomodpb'.slice(0, 7)).toBe('asfsfda')
+})

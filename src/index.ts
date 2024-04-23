@@ -1,11 +1,20 @@
 import { env } from 'process'
 // import { readFileSync } from 'fs'
-// import { Octokit } from 'octokit'
+import { Octokit } from 'octokit'
 // import { failedWithLogs } from './logs.js'
 
+const GITHUB_TOKEN = env['GITHUB_TOKEN']
 console.log('GITHUB_TOKEN: ', env['GITHUB_TOKEN'])
 console.log('RELEASE_TOKEN: ', env['RELEASE_TOKEN'])
 console.log('NPM_TOKEN: ', env['NODE_AUTH_TOKEN'])
+
+const octokit = new Octokit({
+  auth: GITHUB_TOKEN,
+  timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+  userAgent: '@polarove/release-by-tags'
+})
+const { data: user } = await octokit.rest.users.getAuthenticated()
+console.log('username:', user.login)
 
 // const catchEnv = (name: string) => {
 //   const value = env[name]
@@ -25,11 +34,6 @@ console.log('NPM_TOKEN: ', env['NODE_AUTH_TOKEN'])
 //     console.log('RELEASE_TOKEN', auth)
 //     const userAgent = `@polarove/releaseBetweenTags/${vVersion}`
 //     const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone
-//     const octokit = new Octokit({
-//       auth,
-//       userAgent,
-//       timeZone
-//     })
 //     const { data: user } = await octokit.rest.users.getAuthenticated()
 //     console.log('username:', user.login)
 //   })

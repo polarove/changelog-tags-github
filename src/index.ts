@@ -30,43 +30,33 @@ const versionNumber = JSON.parse(
 
 const vVersion = 'v'.concat(versionNumber)
 
-catchEnv('RELEASE_TOKEN')
-  .then(async (auth) => {
-    const userAgent = `@polarove/releaseBetweenTags/${vVersion}`
-    const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone
-    const octokit = new Octokit({
-      auth,
-      timeZone,
-      userAgent
-    })
-    const { data: user } = await octokit.rest.users.getAuthenticated()
-    console.log('username:', user.login)
-    generate()
-  })
-  .catch((err) => failedWithLogs(err))
-
 const generate = async () => {
-  const releaseToken = await catchEnv('RELEASE_TOKEN')
+  const RELEASE_TOKEN = await catchEnv('RELEASE_TOKEN')
+  const userAgent = `@polarove/releaseBetweenTags/${vVersion}`
+  const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone
+  const octokit = new Octokit({
+    auth: RELEASE_TOKEN,
+    timeZone,
+    userAgent
+  })
+
+  const { data: user } = await octokit.rest.users.getAuthenticated()
+
   const ref = await catchEnv('GITHUB_REF')
   const repository = await catchEnv('GITHUB_REPOSITORY')
-  console.log(
-    releaseToken,
-    getStringAfter(ref, '/', 2),
-    getStringAfter(repository, '/')
-  )
+  await octokit.request('POST /repos/{owner}/{repo}/releases', {
+    owner: user.login,
+    repo: getStringAfter(ref, '/', 2),
+    tag_name: vVersion,
+    target_commitish: getStringAfter(repository, '/'),
+    name: vVersion,
+    body: 'Description of the release',
+    draft: false,
+    prerelease: false,
+    generate_release_notes: false,
+    headers: {
+      'X-GitHub-Api-Version': '2022-11-28'
+    }
+  })
 }
-
-// await octokit.request('POST /repos/{owner}/{repo}/releases', {
-//   owner: user.login,
-//   repo: data.repositoryName,
-//   tag_name: vVersion,
-//   target_commitish: data.targetCommitish,
-//   name: vVersion,
-//   body: 'Description of the release',
-//   draft: false,
-//   prerelease: false,
-//   generate_release_notes: false,
-//   headers: {
-//     'X-GitHub-Api-Version': '2022-11-28'
-//   }
-// })
+await generate()

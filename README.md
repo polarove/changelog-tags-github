@@ -35,7 +35,7 @@ jobs:
 
       - run: npx release-by-tags
         env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          RELEASE_TOKEN: ${{secrets.TOKEN_FOR_ACTIONS}}
 ```
 
 ## License

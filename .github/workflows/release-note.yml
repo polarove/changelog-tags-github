@@ -18,6 +18,6 @@ jobs:
         with:
           node-version: lts/*
 
-      - run: tsx src/index.ts
+      - run: npx releaseByTags
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}

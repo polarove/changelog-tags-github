@@ -22,6 +22,7 @@ export const generate = async (config: CliOptions) => {
     '--format=%(refname:short)',
     '--count=0'
   ])
+  console.log(parseLog(tags))
   console.log(parseLog(`previous - ${previous}`))
   console.log(parseLog(`latest - ${latest}`))
   config.title = config.title || latest

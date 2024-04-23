@@ -1,6 +1,6 @@
 {
   "name": "release-by-tags",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Release via specific tags and pushlish release notes to github.",
   "author": "liuqi <liuqi6602@163.com>",
   "license": "MIT",

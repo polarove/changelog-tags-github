@@ -46,15 +46,10 @@ const generate = async () => {
   const repoName = getStringAfter(repository, '/')
   console.log(repository, repoName)
 
-  const ref = await catchEnv('GITHUB_REF')
-  const branchName = getStringAfter(ref, '/', 2)
-  console.log(ref, branchName)
-
   await octokit.request('POST /repos/{owner}/{repo}/releases', {
     owner: user.login,
     repo: repoName,
     tag_name: vVersion,
-    target_commitish: branchName,
     name: vVersion,
     body: 'Description of the release',
     draft: false,

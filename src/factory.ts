@@ -63,7 +63,7 @@ const parseMarkdown = (commits: Commit[], github: string): string => {
             .concat('\n')
         })
         .reduce((a, b) => a + b)
-    : '## 没有变更记录'
+    : '### 没有变更记录'
 }
 
 export const sendReleaseToGithub = async (config: CliOptions, md: string) => {

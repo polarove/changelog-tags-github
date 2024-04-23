@@ -15,22 +15,12 @@ const versionNumber = JSON.parse(
 
 const vVersion = 'v'.concat(versionNumber)
 
-const prepareRequest = () => {
-  const userAgent = `@polarove/releaseBetweenTags/${vVersion}`
-  let auth = ''
-  console.log(env)
-  catchEnv('GITHUB_TOKEN')
-    .then((token) => (auth = token))
-    .catch((err) => failedWithLogs(err))
-  console.log('github_token: ', auth)
-  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
-  return {
-    userAgent,
-    auth,
-    timezone
-  }
-}
-
-const octokit = new Octokit(prepareRequest())
-const { data: user } = await octokit.rest.users.getAuthenticated()
-console.log(user.login)
+catchEnv('RELEASE_TOKEN')
+  .then(async (auth) => {
+    const userAgent = `@polarove/releaseBetweenTags/${vVersion}`
+    const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone
+    const octokit = new Octokit({ auth, userAgent, timeZone })
+    const { data: user } = await octokit.rest.users.getAuthenticated()
+    console.log(user.login)
+  })
+  .catch((err) => failedWithLogs(err))

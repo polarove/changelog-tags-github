@@ -13,6 +13,8 @@ import {
 
 export const generate = async (config: CliOptions) => {
   const { previous, latest } = await getLatestTwoTags(config.from, config.to)
+  console.log('previous: ', previous)
+  console.log('latest', latest)
   config.title = config.title || latest
   config.from = config.from || previous
   config.to = config.to || latest

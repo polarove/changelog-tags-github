@@ -2,6 +2,7 @@ import { Commit, TagFrom, TagTo } from '.'
 import { execute } from '.'
 
 export const getLatestTwoTags = async (from?: TagFrom, to?: TagTo) => {
+  if (from && to) return { previous: from, latest: to }
   const tags = await execute('git', [
     'for-each-ref',
     'refs/tags',
@@ -9,8 +10,8 @@ export const getLatestTwoTags = async (from?: TagFrom, to?: TagTo) => {
     '--format=%(refname:short)',
     '--count=2'
   ])
-  const previous = from || tags.split('\n')[1]
-  const latest = to || tags.split('\n')[0]
+  const previous = tags.split('\n')[1]
+  const latest = tags.split('\n')[0]
   return { previous, latest }
 }
 

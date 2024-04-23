@@ -10,6 +10,7 @@ import {
   getOriginUrl,
   strip
 } from '.'
+import { name } from '../package.json'
 
 export const generate = async (config: CliOptions) => {
   const { previous, latest } = await getLatestTwoTags(config.from, config.to)
@@ -64,6 +65,7 @@ export const sendReleaseToGithub = async (config: CliOptions, md: string) => {
     userAgent
   })
   const { data: user } = await octokit.rest.users.getAuthenticated()
+  if (user) console.log(`[${name}]：认证成功`)
   await octokit.request('POST /repos/{owner}/{repo}/releases', {
     owner: user.login,
     repo: config.github,

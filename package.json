@@ -31,6 +31,9 @@
     "npm-check-updates": "^16.14.18",
     "prettier": "^3.2.5"
   },
+  "bin": {
+    "releaseByTags": "./lib/index.js"
+  },
   "config": {
     "commitizen": {
       "path": "node_modules/@cz-translated-changelog/zh-cn"

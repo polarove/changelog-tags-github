@@ -1,9 +1,41 @@
 ## release-by-tags
 
 > [!TIP]
-> 检查 `interface` 类型声明的 `key` 是否全包含接口返回的数据的 key
+> 抓取当前分支最新的两个 tag 并生成软件版本更新日志，并发布到对应的github仓库下
 
 [![npm version][npm-version-src]][npm-package-href][![npm downloads][npm-monthly-downloads-src]][npm-monthly-downloads-href][![License][license-src]][npm-package-href]
+
+## 使用
+
+你需要准备一个账户token: [了解如何创建token](https://github.com/settings/tokens)
+并将它作为需要自动生成 release note 仓库的 secret [了解如何创建secret](https://docs.github.com/zh/actions/security-guides/using-secrets-in-github-actions)
+
+```yml
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: lts/*
+
+      - run: npx release-by-tags
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+```
 
 ## License
 

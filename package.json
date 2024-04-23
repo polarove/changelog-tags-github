@@ -49,6 +49,7 @@
   "devDependencies": {
     "@cz-translated-changelog/zh-cn": "latest",
     "@translated-lint/zh-cn": "latest",
+    "@types/semver": "^7.5.8",
     "commitizen": "latest",
     "husky": "latest",
     "kolorist": "^1.8.0",

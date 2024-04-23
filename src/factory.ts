@@ -8,14 +8,22 @@ import {
   getDomain,
   getLatestTwoTags,
   getOriginUrl,
-  strip
+  strip,
+  parseLog,
+  execute
 } from '.'
-import { name } from '../package.json'
 
 export const generate = async (config: CliOptions) => {
   const { previous, latest } = await getLatestTwoTags(config.from, config.to)
-  console.log('previous: ', previous)
-  console.log('latest', latest)
+  const tags = await execute('git', [
+    'for-each-ref',
+    'refs/tags',
+    '--sort=-taggerdate',
+    '--format=%(refname:short)',
+    '--count=0'
+  ])
+  console.log(parseLog(`previous - ${previous}`))
+  console.log(parseLog(`latest - ${latest}`))
   config.title = config.title || latest
   config.from = config.from || previous
   config.to = config.to || latest
@@ -65,7 +73,7 @@ export const sendReleaseToGithub = async (config: CliOptions, md: string) => {
     userAgent
   })
   const { data: user } = await octokit.rest.users.getAuthenticated()
-  if (user) console.log(`[${name}]：认证成功`)
+  if (user) console.log(parseLog('认证成功'))
   await octokit.request('POST /repos/{owner}/{repo}/releases', {
     owner: user.login,
     repo: config.github,

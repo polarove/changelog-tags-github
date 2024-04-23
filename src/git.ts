@@ -3,7 +3,12 @@ import { execute } from '.'
 
 export const getLatestTwoTags = async (from?: TagFrom, to?: TagTo) => {
   if (from && to) return { previous: from, latest: to }
-  const tags = await execute('git', ['tag', '--sort=-taggerdate'])
+  const tags = await execute('git', [
+    '--no-pager',
+    'tag',
+    '-l',
+    '--sort=-creatordate'
+  ])
   const previous = tags.split('\n')[1]
   const latest = tags.split('\n')[0]
   return { previous, latest }

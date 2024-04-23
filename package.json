@@ -27,6 +27,7 @@
     "cac": "^6.7.14",
     "execa": "^8.0.1",
     "octokit": "^3.2.0",
+    "semver": "^6.2.0",
     "typescript": "^5.4.5"
   },
   "sideEffects": false,

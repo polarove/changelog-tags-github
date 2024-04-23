@@ -9,8 +9,7 @@ import {
   getLatestTwoTags,
   getOriginUrl,
   strip,
-  parseLog,
-  execute
+  parseLog
 } from '.'
 
 export const generate = async (config: CliOptions) => {
@@ -20,21 +19,24 @@ export const generate = async (config: CliOptions) => {
   config.title = config.title || latest
   config.from = config.from || previous
   config.to = config.to || latest
-  config.token = config.token || (await catchEnv(RELEASE_TOKEN))
-  config.github =
-    config.github ||
-    (await getOriginUrl()) ||
-    strip(await catchEnv(GITHUB_REPOSITORY), '/')
   config.draft = config.draft || false
   config.prerelease = config.prerelease || false
+  config.github = config.github || (await getOriginUrl())
+  if (typeof config.output !== 'string') {
+    config.token = config.token || (await catchEnv(RELEASE_TOKEN))
+    config.github =
+      config.github ||
+      (await getOriginUrl()) ||
+      strip(await catchEnv(GITHUB_REPOSITORY), '/')
+  }
   const commits = await getCommitBetweenTags(config.from, config.to)
   const md = parseMarkdown(commits, config.github)
   return { config, md }
 }
 
-const parseMarkdown = (commits: Commit[], github: string) => {
+const parseMarkdown = (commits: Commit[], github: string): string => {
   const parseCommitLink = (hash: string) => {
-    return github.concat('/commit/').concat(hash)
+    return github + '/commit/' + hash
   }
 
   const parseSubject = (subject: string) => {
@@ -43,17 +45,24 @@ const parseMarkdown = (commits: Commit[], github: string) => {
 
   return commits.length
     ? commits
-        .map((commit) =>
-          `
-    ### &nbsp;&nbsp;&nbsp;${parseSubject(commit.subject)}
-    `
-            .concat('')
+        .map((commit) => {
+          const date = new Date(commit.date)
+          return `### ${parseSubject(commit.subject)}`
+            .concat('\n')
+            .concat('\n')
+            .concat(date.toLocaleString())
+            .concat('\n')
             .concat(
-              `[${commit.hash.slice(0, 7)}](${parseCommitLink(commit.hash)}) - [${commit.author}](${getDomain(github).concat('/').concat(commit.author)})`
+              `[${commit.hash.slice(0, 7)}](${parseCommitLink(commit.hash)})`
             )
-            .concat('')
-        )
-        .toString()
+            .concat(' - ')
+            .concat(
+              `[${commit.author}](${getDomain(github).concat('/').concat(commit.author)})`
+            )
+            .concat('\n')
+            .concat('\n')
+        })
+        .reduce((a, b) => a + b)
     : '## 没有变更记录'
 }
 

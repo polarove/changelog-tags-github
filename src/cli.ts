@@ -4,14 +4,15 @@ import {
   CliOptions,
   RELEASE_TOKEN,
   failedWithLog,
-  catchEnv,
   finishedWithLog,
   packageName,
-  parseLog
+  parseLog,
+  sendReleaseToGithub,
+  generate
 } from '.'
-import { sendReleaseToGithub, generate } from './factory'
+
 import { writeFileSync } from 'fs'
-import { green } from 'kolorist'
+import { green, dim } from 'kolorist'
 
 const cli = cac('release-by-tags')
 cli
@@ -44,18 +45,20 @@ cli
 cli.command('').action(async (args: CliOptions) => {
   console.log(`---------------------${packageName}------------------------`)
   console.log(parseLog('...处理中'))
-  await catchEnv(`${RELEASE_TOKEN}`)
-    .then((envToken) => (args.token = args.token || envToken))
-    .catch((err) => failedWithLog(err))
+  console.log(args.output)
   try {
     const { config, md } = await generate(args)
     if (typeof args.output === 'string') {
-      writeFileSync(args.output, md)
+      writeFileSync(args.output, md, { encoding: 'utf-8' })
       finishedWithLog(green(`已保存至 ${args.output}`))
+      return
     }
+
     await sendReleaseToGithub(config, md)
     finishedWithLog(green('已发布到Github'))
-  } catch (err) {
+  } catch (err: any) {
+    if (err?.stack)
+      console.error(dim(err.stack?.split('\n').slice(1).join('\n')))
     failedWithLog(err as string)
   }
 })

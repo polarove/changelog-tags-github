@@ -15,5 +15,4 @@ export const failedWithLog = (message: string) => {
 
 export const finishedWithLog = (message: string) => {
   console.error(parseLog('✨ '.concat(red(message))))
-  return exit(0)
 }

@@ -1,10 +1,10 @@
 import { exit } from 'process'
 
 const parseLog = (message: string) => {
-    return `[release-bytags]：${message}`
+  return `[release-by-tags]：${message}`
 }
 
 export const failedWithLogs = (message: string) => {
-    console.error(parseLog(message))
-    exit(1)
+  console.error(parseLog(message))
+  exit(1)
 }

@@ -1,5 +1,5 @@
 {
-  "name": "release-bytags",
+  "name": "release-by-tags",
   "version": "1.0.1",
   "description": "",
   "main": "index.ts",

@@ -55,7 +55,7 @@ cli.command('').action(async (args: CliOptions) => {
       finishedWithLog(green(`已保存至 ${args.output}`))
     }
     const octokit = prepare(config.token)
-    sendReleaseToGithub(octokit, config, md)
+    await sendReleaseToGithub(octokit, config, md)
     finishedWithLog(green('已发布到Github'))
   } catch (err) {
     failedWithLog(err as string)

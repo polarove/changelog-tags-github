@@ -32,7 +32,7 @@ export const generate = async (config: CliOptions) => {
 
 const parseMarkdown = (commits: Commit[], github: string) => {
   const parseCommitLink = (hash: string) => {
-    return github.concat('/commit').concat(hash)
+    return github.concat('/commit/').concat(hash)
   }
 
   const parseSubject = (subject: string) => {

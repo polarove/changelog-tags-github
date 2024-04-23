@@ -9,6 +9,11 @@
     "build": "tsc",
     "prepare": "husky"
   },
+  "keywords": [
+    "changelog",
+    "release note",
+    "github"
+  ],
   "files": [
     "./lib"
   ],

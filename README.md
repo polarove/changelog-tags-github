@@ -8,6 +8,7 @@
 ## 使用
 
 你需要准备一个账户token: [了解如何创建token](https://github.com/settings/tokens)
+
 并将它作为需要自动生成 release note 仓库的 secret [了解如何创建secret](https://docs.github.com/zh/actions/security-guides/using-secrets-in-github-actions)
 
 ```yml

@@ -1,12 +1,21 @@
 {
   "name": "release-by-tags",
   "version": "1.0.6",
-  "description": "",
-  "main": "index.ts",
-  "type": "module",
+  "description": "Release via specific tags and pushlish release notes to github.",
+  "author": "liuqi <liuqi6602@163.com>",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/polarove/release-by-tags.git"
+  },
   "scripts": {
     "test": "vitest",
-    "build": "tsc",
+    "build": "unbuild",
+    "release": "node ./cli.mjs",
+    "release:pre": "node ./cli.mjs --pre",
     "prepare": "husky"
   },
   "keywords": [
@@ -14,31 +23,41 @@
     "release note",
     "github"
   ],
-  "files": [
-    "./lib"
-  ],
-  "author": "liuqi <liuqi6602@163.com>",
-  "license": "MIT",
   "dependencies": {
+    "cac": "^6.7.14",
+    "execa": "^8.0.1",
     "octokit": "^3.2.0",
     "typescript": "^5.4.5"
   },
-  "publishConfig": {
-    "access": "public"
+  "sideEffects": false,
+  "type": "module",
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
   },
+  "files": [
+    "dist",
+    "*.mjs"
+  ],
   "devDependencies": {
-    "vitest": "^1.5.0",
     "@cz-translated-changelog/zh-cn": "latest",
     "@translated-lint/zh-cn": "latest",
     "commitizen": "latest",
     "husky": "latest",
+    "kolorist": "^1.8.0",
     "lint-staged": "^15.2.2",
     "npm-check-updates": "^16.14.18",
-    "prettier": "^3.2.5"
+    "prettier": "^3.2.5",
+    "unbuild": "^2.0.0",
+    "vitest": "^1.5.0"
   },
-  "bin": {
-    "releaseByTags": "./lib/index.js"
-  },
+  "bin": "./cli.mjs",
   "config": {
     "commitizen": {
       "path": "node_modules/@cz-translated-changelog/zh-cn"

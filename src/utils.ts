@@ -6,23 +6,32 @@
  * @param includes 返回值是否包含标识符
  * @example getStringAfter('124/23526', '/') => '23526'
  */
-export const getStringAfter = (
-    str: string,
-    identifier: string,
-    recursion: number = 1,
-    includes: boolean = false
+export const strip = (
+  str: string,
+  identifier: string,
+  recursion: number = 1,
+  includes: boolean = false
 ): string => {
-    if (!str.includes(identifier)) return str
-    let times = 0
-    const knife = (str: string): string | undefined => {
-        str = str.slice(
-            str.indexOf(identifier) + (includes ? 0 : 1),
-            str.length
-        )
-        times += 1
-        if (recursion > 1 && times < recursion) {
-            return knife(includes ? str.slice(1, str.length) : str)
-        } else return str
-    }
-    return knife(str)!
+  if (!str.includes(identifier)) return str
+  let times = 0
+  const knife = (str: string): string | undefined => {
+    str = str.slice(str.indexOf(identifier) + (includes ? 0 : 1), str.length)
+    times += 1
+    if (recursion > 1 && times < recursion) {
+      return knife(includes ? str.slice(1, str.length) : str)
+    } else return str
+  }
+  return knife(str)!
+}
+
+/**
+ *
+ * @param cmd 命令
+ * @param args 参数
+ * @returns stdout.trim()
+ */
+export const execute = async (cmd: string, args: string[]) => {
+  const { execa } = await import('execa')
+  const res = await execa(cmd, args)
+  return res.stdout.trim()
 }

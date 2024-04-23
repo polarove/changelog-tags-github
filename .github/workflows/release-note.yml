@@ -20,6 +20,8 @@ jobs:
 
       - run: npm i
 
-      - run: npx tsx src/index.ts
+      - run: npm run build
+
+      - run: node ./lib/index.ts
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}

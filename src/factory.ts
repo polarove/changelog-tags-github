@@ -75,7 +75,9 @@ export const sendReleaseToGithub = async (config: CliOptions, md: string) => {
     userAgent
   })
   const { data: user } = await octokit.rest.users.getAuthenticated()
-  if (user) console.log(parseLog('认证成功'))
+  if (user) console.log(parseLog(`${user.login}, 认证成功`))
+  console.log(config)
+  console.log(md)
   await octokit.request('POST /repos/{owner}/{repo}/releases', {
     owner: user.login,
     repo: config.github,

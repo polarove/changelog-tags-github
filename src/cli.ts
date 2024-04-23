@@ -49,7 +49,7 @@ cli.command('').action(async (args: CliOptions) => {
     .catch((err) => failedWithLog(err))
   try {
     const { config, md } = await generate(args)
-
+    console.log('REEALSE_TOKEN', config.token)
     if (typeof args.output === 'string') {
       writeFileSync(args.output, md)
       finishedWithLog(green(`已保存至 ${args.output}`))

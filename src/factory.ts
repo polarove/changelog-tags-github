@@ -15,14 +15,6 @@ import {
 
 export const generate = async (config: CliOptions) => {
   const { previous, latest } = await getLatestTwoTags(config.from, config.to)
-  const tags = await execute('git', [
-    'for-each-ref',
-    'refs/tags',
-    '--sort=-taggerdate',
-    '--format=%(refname:short)',
-    '--count=0'
-  ])
-  console.log(parseLog(tags))
   console.log(parseLog(`previous - ${previous}`))
   console.log(parseLog(`latest - ${latest}`))
   config.title = config.title || latest

@@ -17,10 +17,15 @@ const vVersion = 'v'.concat(versionNumber)
 
 catchEnv('RELEASE_TOKEN')
   .then(async (auth) => {
+    console.log(env)
     const userAgent = `@polarove/releaseBetweenTags/${vVersion}`
     const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone
-    const octokit = new Octokit({ auth, userAgent, timeZone })
+    const octokit = new Octokit({
+      auth,
+      userAgent,
+      timeZone
+    })
     const { data: user } = await octokit.rest.users.getAuthenticated()
-    console.log(user.login)
+    console.log('username:', user.login)
   })
   .catch((err) => failedWithLogs(err))

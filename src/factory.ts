@@ -15,13 +15,6 @@ import {
 
 export const generate = async (config: CliOptions) => {
   const { previous, latest } = await getLatestTwoTags(config.from, config.to)
-  const tags = await execute('git', [
-    '--no-pager',
-    'tag',
-    '-l',
-    '--sort=-creatordate'
-  ])
-  console.log(tags)
   console.log(parseLog(`previous - ${previous}`))
   console.log(parseLog(`latest - ${latest}`))
   config.title = config.title || latest

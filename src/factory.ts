@@ -76,9 +76,7 @@ export const sendReleaseToGithub = async (config: CliOptions, md: string) => {
     userAgent
   })
   const { data: user } = await octokit.rest.users.getAuthenticated()
-  if (user) console.log(parseLog(`${user.login}, 认证成功`))
-  console.log(config)
-  console.log(md)
+  if (user) console.log(parseLog(`✨ 仓库持有者认证成功 | ${user.login}`))
   const repo = httpsProtocal(config.github)
     .match(/^(https:\/\/|git@)([^/\r\n]+)(\/[^\r\n]*)(\/[^\r\n]*)/)![4]
     .replace(/\//, '')

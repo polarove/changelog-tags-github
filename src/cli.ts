@@ -45,7 +45,6 @@ cli
 cli.command('').action(async (args: CliOptions) => {
   console.log(`---------------------${packageName}------------------------`)
   console.log(parseLog('...处理中'))
-  console.log(args.output)
   try {
     const { config, md } = await generate(args)
     if (typeof args.output === 'string') {

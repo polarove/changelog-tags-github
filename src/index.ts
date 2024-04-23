@@ -44,7 +44,6 @@ const generate = async () => {
 
   const repository = await catchEnv('GITHUB_REPOSITORY')
   const repoName = getStringAfter(repository, '/')
-  console.log(repository, repoName)
 
   await octokit.request('POST /repos/{owner}/{repo}/releases', {
     owner: user.login,

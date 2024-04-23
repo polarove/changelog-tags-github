@@ -18,6 +18,7 @@ const vVersion = 'v'.concat(versionNumber)
 const prepareRequest = () => {
   const userAgent = `@polarove/releaseBetweenTags/${vVersion}`
   let auth = ''
+  console.log(env)
   catchEnv('GITHUB_TOKEN')
     .then((token) => (auth = token))
     .catch((err) => failedWithLogs(err))

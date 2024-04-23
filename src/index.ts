@@ -4,8 +4,8 @@ import { env } from 'process'
 // import { failedWithLogs } from './logs.js'
 
 console.log('GITHUB_TOKEN: ', env['GITHUB_TOKEN'])
-console.log('TOKEN_FOR_ACTIONS: ', env['TOKEN_FOR_ACTIONS'])
-console.log('NPM_TOKEN: ', env['NPM_TOKEN'])
+console.log('RELEASE_TOKEN: ', env['RELEASE_TOKEN'])
+console.log('NPM_TOKEN: ', env['NODE_AUTH_TOKEN'])
 
 // const catchEnv = (name: string) => {
 //   const value = env[name]

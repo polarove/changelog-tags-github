@@ -21,6 +21,7 @@ const prepareRequest = () => {
   catchEnv('GITHUB_TOKEN')
     .then((token) => (auth = token))
     .catch((err) => failedWithLogs(err))
+  console.log('github_token: ', auth)
   const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
   return {
     userAgent,

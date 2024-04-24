@@ -5,6 +5,10 @@
 
 [![npm version][npm-version-src]][npm-package-href][![npm downloads][npm-monthly-downloads-src]][npm-monthly-downloads-href][![License][license-src]][npm-package-href]
 
+## DEPRECATED | 不再维护
+
+请使用[@changelog-tags/github](https://www.npmjs.com/package/@changelog-tags/github)
+
 ## 使用
 
 你需要准备一个账户token: [了解如何创建token](https://github.com/settings/tokens)

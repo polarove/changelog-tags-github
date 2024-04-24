@@ -13,9 +13,7 @@
 
 并将它作为需要自动生成 release note 仓库的 secret [了解如何创建secret](https://docs.github.com/zh/actions/security-guides/using-secrets-in-github-actions)
 
-## todo
-
-emoji支持
+## 开始使用
 
 ```yml
 name: Release
@@ -43,6 +41,14 @@ jobs:
         env:
           RELEASE_TOKEN: ${{secrets.TOKEN_FOR_ACTIONS}}
 ```
+
+## todo
+
+emoji支持
+
+commit 分组
+
+shallow clone
 
 ## License
 

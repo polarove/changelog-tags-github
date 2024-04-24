@@ -79,6 +79,8 @@ export const sendReleaseToGithub = async (config: CliOptions, md: string) => {
   const repo = httpsProtocal(config.github)
     .match(/^(https:\/\/|git@)([^/\r\n]+)(\/[^\r\n]*)(\/[^\r\n]*)/)![4]
     .replace(/\//, '')
+  console.log(config)
+  console.log(md)
   await octokit.request('POST /repos/{owner}/{repo}/releases', {
     owner: user.login,
     repo,

@@ -52,7 +52,6 @@ cli.command('').action(async (args: CliOptions) => {
       finishedWithLog(green(`已保存至 ${args.output}`))
       return
     }
-
     await sendReleaseToGithub(config, md)
     finishedWithLog(green('已发布到Github'))
   } catch (err: any) {

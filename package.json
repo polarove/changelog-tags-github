@@ -24,6 +24,7 @@
     "github"
   ],
   "dependencies": {
+    "@changelog-tags/gitag": "^0.0.31",
     "cac": "^6.7.14",
     "execa": "^8.0.1",
     "octokit": "^3.2.0",

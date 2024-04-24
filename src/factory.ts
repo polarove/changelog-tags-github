@@ -4,33 +4,32 @@ import {
   GITHUB_REPOSITORY,
   RELEASE_TOKEN,
   catchEnv,
-  getCommitBetweenTags,
   getDomain,
-  getLatestTwoTags,
   getOriginUrl,
   strip,
   parseLog,
-  httpsProtocal
+  httpsProtocal,
+  PACKAGE_NAME
 } from '.'
+import {
+  getLatestTwoTags,
+  getDetailedCommitsBetweenTags
+} from '@changelog-tags/gitag'
 
 export const generate = async (config: CliOptions) => {
-  const { previous, latest } = await getLatestTwoTags(config.from, config.to)
-  console.log(parseLog(`previous - ${previous}`))
-  console.log(parseLog(`latest - ${latest}`))
+  const { previous, latest } = await getLatestTwoTags()
+  const github = config.github || (await getOriginUrl())
   config.title = config.title || latest
   config.from = config.from || previous
   config.to = config.to || latest
   config.draft = config.draft || false
   config.prerelease = config.prerelease || false
-  config.github = config.github || (await getOriginUrl())
+  config.github = github
   if (typeof config.output !== 'string') {
     config.token = config.token || (await catchEnv(RELEASE_TOKEN))
-    config.github =
-      config.github ||
-      (await getOriginUrl()) ||
-      strip(await catchEnv(GITHUB_REPOSITORY), '/')
+    config.github = github || strip(await catchEnv(GITHUB_REPOSITORY), '/')
   }
-  const commits = await getCommitBetweenTags(config.from, config.to)
+  const commits = await getDetailedCommitsBetweenTags(config.from, config.to)
   const md = parseMarkdown(commits, config.github)
   return { config, md }
 }
@@ -68,7 +67,7 @@ const parseMarkdown = (commits: Commit[], github: string): string => {
 }
 
 export const sendReleaseToGithub = async (config: CliOptions, md: string) => {
-  const userAgent = `@polarove/releaseBetweenTags`
+  const userAgent = PACKAGE_NAME
   const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone
   const octokit = new Octokit({
     auth: config.token,

@@ -5,7 +5,7 @@ import {
   RELEASE_TOKEN,
   failedWithLog,
   finishedWithLog,
-  packageName,
+  PACKAGE_NAME,
   parseLog,
   sendReleaseToGithub,
   generate
@@ -43,7 +43,7 @@ cli
   .help()
 
 cli.command('').action(async (args: CliOptions) => {
-  console.log(`---------------------${packageName}------------------------`)
+  console.log(`---------------------${PACKAGE_NAME}------------------------`)
   console.log(parseLog('...处理中'))
   try {
     const { config, md } = await generate(args)

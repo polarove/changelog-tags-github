@@ -2,6 +2,8 @@
 
 > [!TIP]
 > 抓取当前分支最新的两个 tag 并生成软件版本更新日志，并发布到对应的github仓库下
+> 你也可以指定 tag
+> 也可以写入本地文件，而不是发布到github的仓库下
 
 [![npm version][npm-version-src]][npm-package-href][![npm downloads][npm-monthly-downloads-src]][npm-monthly-downloads-href][![License][license-src]][npm-package-href]
 

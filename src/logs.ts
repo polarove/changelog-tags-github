@@ -6,12 +6,12 @@ export const parseLog = (message: string) => {
   return `[${PACKAGE_NAME}]：`.concat(message)
 }
 
-export const failedWithLog = (message: string) => {
-  console.error(parseLog('❗ '.concat(red(message))))
+export const failedWithLog = (message: string, ...args: any) => {
+  console.error(parseLog('❗ '.concat(red(message))), args)
   return exit(1)
 }
 
-export const finishedWithLog = (message: string) => {
-  console.error(parseLog('✨ '.concat(red(message))))
+export const finishedWithLog = (message: string, ...args: any) => {
+  console.error(parseLog('✨ '.concat(red(message))), args)
   return exit(0)
 }

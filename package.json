@@ -1,5 +1,5 @@
 {
-  "name": "release-by-tags",
+  "name": "@changelog-tags/github",
   "version": "1.0.32",
   "description": "Release via specific tags and pushlish release notes to github.",
   "author": "liuqi <liuqi6602@163.com>",

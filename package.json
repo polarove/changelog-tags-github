@@ -48,8 +48,8 @@
         "*.mjs"
     ],
     "devDependencies": {
-        "@cz-translated-changelog/zh-cn": "workspace:*",
-        "@translated-lint/zh-cn": "workspace:*",
+        "@cz-translated-changelog/zh-cn": "latest",
+        "@translated-lint/zh-cn": "latest",
         "@types/semver": "^7.5.8",
         "commitizen": "latest",
         "husky": "latest",

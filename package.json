@@ -1,69 +1,69 @@
 {
-  "name": "@changelog-tags/github",
-  "version": "1.0.35",
-  "description": "Release via specific tags and pushlish release notes to github.",
-  "author": "liuqi <liuqi6602@163.com>",
-  "license": "MIT",
-  "publishConfig": {
-    "access": "public"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/polarove/changelog-tags/github.git"
-  },
-  "scripts": {
-    "test": "vitest",
-    "build": "unbuild",
-    "release": "node ./cli.mjs",
-    "release:pre": "node ./cli.mjs --pre",
-    "prepare": "husky"
-  },
-  "keywords": [
-    "changelog",
-    "release note",
-    "github"
-  ],
-  "dependencies": {
-    "@changelog-tags/gitag": "^0.0.31",
-    "cac": "^6.7.14",
-    "execa": "^8.0.1",
-    "octokit": "^3.2.0",
-    "semver": "^6.2.0",
-    "typescript": "^5.4.5"
-  },
-  "sideEffects": false,
-  "type": "module",
-  "main": "./dist/index.mjs",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs"
+    "name": "@changelog-tags/github",
+    "version": "1.0.35",
+    "description": "Release via specific tags and pushlish release notes to github.",
+    "author": "liuqi <liuqi6602@163.com>",
+    "license": "MIT",
+    "publishConfig": {
+        "access": "public"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/polarove/changelog-tags/github.git"
+    },
+    "scripts": {
+        "test": "vitest",
+        "build": "unbuild",
+        "release": "node ./cli.mjs",
+        "release:pre": "node ./cli.mjs --pre",
+        "prepare": "husky"
+    },
+    "keywords": [
+        "changelog",
+        "release note",
+        "github"
+    ],
+    "dependencies": {
+        "@changelog-tags/gitag": "^0.0.31",
+        "cac": "^6.7.14",
+        "execa": "^8.0.1",
+        "octokit": "^3.2.0",
+        "semver": "^6.2.0",
+        "typescript": "^5.4.5"
+    },
+    "sideEffects": false,
+    "type": "module",
+    "main": "./dist/index.mjs",
+    "module": "./dist/index.mjs",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.mjs",
+            "require": "./dist/index.cjs"
+        }
+    },
+    "files": [
+        "dist",
+        "*.mjs"
+    ],
+    "devDependencies": {
+        "@cz-translated-changelog/zh-cn": "workspace:*",
+        "@translated-lint/zh-cn": "workspace:*",
+        "@types/semver": "^7.5.8",
+        "commitizen": "latest",
+        "husky": "latest",
+        "kolorist": "^1.8.0",
+        "lint-staged": "^15.2.2",
+        "npm-check-updates": "^16.14.18",
+        "prettier": "^3.2.5",
+        "unbuild": "^2.0.0",
+        "vitest": "^1.5.0"
+    },
+    "bin": "./cli.mjs",
+    "config": {
+        "commitizen": {
+            "path": "node_modules/@cz-translated-changelog/zh-cn"
+        }
     }
-  },
-  "files": [
-    "dist",
-    "*.mjs"
-  ],
-  "devDependencies": {
-    "@cz-translated-changelog/zh-cn": "latest",
-    "@translated-lint/zh-cn": "latest",
-    "@types/semver": "^7.5.8",
-    "commitizen": "latest",
-    "husky": "latest",
-    "kolorist": "^1.8.0",
-    "lint-staged": "^15.2.2",
-    "npm-check-updates": "^16.14.18",
-    "prettier": "^3.2.5",
-    "unbuild": "^2.0.0",
-    "vitest": "^1.5.0"
-  },
-  "bin": "./cli.mjs",
-  "config": {
-    "commitizen": {
-      "path": "node_modules/@cz-translated-changelog/zh-cn"
-    }
-  }
 }

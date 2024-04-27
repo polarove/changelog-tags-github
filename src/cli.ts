@@ -10,12 +10,11 @@ import {
   sendReleaseToGithub,
   generate,
 } from ".";
-import { name } from "../package.json";
 
 import { writeFileSync } from "fs";
 import { green, dim } from "kolorist";
 
-const cli = cac(name);
+const cli = cac(PACKAGE_NAME);
 cli
   .version(version)
   .option(
